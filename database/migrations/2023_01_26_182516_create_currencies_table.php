@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('currency_code')->unique();
-            $table->decimal(7,3,'exchange_rate');
+            $table->decimal('exchange_rate',7,3);
             $table->timestamps();
         });
     }
