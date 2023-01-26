@@ -17,11 +17,12 @@ class CurrencyController extends Controller
             $currency->name = $data->currency;
             $currency->exchange_rate = $data->mid;
             $currency->currency_code = $data->code;
-            if(Currency::where('currency_code', $currency->currency_code)->exists()){
-                Currency::where('currency_code', $currency->currency_code)->update(['exchange_rate'=>$currency->exchange_rate]);}
+            $record=Currency::where('currency_code', $currency->currency_code);
+            if($record->exists()){
+                $record->update(['exchange_rate'=>$currency->exchange_rate]);}
             else{$currency->save();}
             
         }
-        return "DONE";
+        return "DATABASE HAS BEEN UPDATED WITH NEW EXCHANGE RATES";
     }
 }
