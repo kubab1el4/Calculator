@@ -18,3 +18,6 @@ Route::get('/', function () {
 });
 
 Route::Get('/fetch', 'App\Http\Controllers\CurrencyController@fetch');
+
+Route::get('/calculate', 'App\Http\Controllers\CurrencyController@calculate');
+
