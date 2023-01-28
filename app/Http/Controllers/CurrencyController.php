@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\Currency;
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-
 use Illuminate\Http\Request;
+
 
 class CurrencyController extends Controller
 {
@@ -31,5 +31,13 @@ class CurrencyController extends Controller
         
 
         return "DATABASE HAS BEEN UPDATED WITH NEW EXCHANGE RATES";
+    }
+    public function calculate(Request $request){
+        $this->fetch();
+        $data=['id_from'=>Currency::find($request->get('currency_from'))->id,
+        'id_to'=>Currency::find($request->get('currency_to'))->id,];
+        $result= (Currency::find($request->get('currency_from'))->exchange_rate) * $request->get('amount') / (Currency::find($request->get('currency_to'))->exchange_rate);
+        $string=$request->get('amount')." ".Currency::find($request->get('currency_from'))->currency_code." = ".round($result,3)." ".Currency::find($request->get('currency_to'))->currency_code;
+return view('welcome', compact('string', 'data'));
     }
 }
